@@ -10,7 +10,6 @@ import { toast } from 'sonner';
 
 export function Notes() {
   const data = notesRoute.useLoaderData();
-  console.log({ data });
   const { userId } = notesRoute.useParams();
   const formRef = useRef<HTMLFormElement>(null);
 
