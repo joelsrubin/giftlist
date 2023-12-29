@@ -10,7 +10,7 @@ import {
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import './index.css';
-import logo from '@/assets/avatar.png';
+import logo from '../public/avatar.png';
 import { Toaster } from '@/components/ui/sonner';
 import { Button } from '@/components/ui/button';
 
