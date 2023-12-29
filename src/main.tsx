@@ -10,7 +10,7 @@ import {
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import './index.css';
-
+import logo from '@/assets/avatar.png';
 import { Toaster } from '@/components/ui/sonner';
 import { Button } from '@/components/ui/button';
 
@@ -31,7 +31,7 @@ import {
   SignInButton,
 } from '@clerk/clerk-react';
 
-import { DropdownMenuComponent } from './components/compound-components/dropdown-menu';
+import { DropdownMenuComponent as DropDown } from './components/compound-components/dropdown-menu';
 const rootRoute = new RootRoute({
   component: function Root() {
     const { isSignedIn } = useAuth();
@@ -39,11 +39,13 @@ const rootRoute = new RootRoute({
     return (
       <div className="bg-slate-100 h-full">
         <nav className="flex items-center justify-between px-4">
-          <h1 className="text-center p-4 text-2xl font-bold underline decoration-wavy decoration-indigo-400 underline-offset-8">
-            Wish List
-          </h1>
-          <Button variant="link" asChild>
-            {isSignedIn ? <DropdownMenuComponent /> : <SignInButton />}
+          <Link to="/">
+            <h1 className="text-center p-4 text-3xl font-bold underline decoration-wavy decoration-indigo-400 underline-offset-8">
+              Wish List
+            </h1>
+          </Link>
+          <Button className="text-xl" variant="link" asChild>
+            {isSignedIn ? <DropDown /> : <SignInButton />}
           </Button>
         </nav>
         <Outlet />
@@ -59,6 +61,7 @@ const indexRoute = new Route({
   path: '/',
   component: function Index() {
     const { user } = useUser();
+
     return (
       <div className="p-2 bg-slate-100 flex flex-col gap-4 h-screen w-full space-y-4 items-center justify-center">
         <div className="w-[400px] text-center flex justify-between flex-col gap-8">
@@ -82,9 +85,7 @@ const indexRoute = new Route({
           </SignedIn>
           <SignedOut>
             <Link to="/signIn">
-              <Button className="mx-auto" variant="link">
-                Sign In
-              </Button>
+              <img src={logo} />
             </Link>
           </SignedOut>
         </div>
