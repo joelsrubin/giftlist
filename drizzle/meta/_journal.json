@@ -15,6 +15,20 @@
       "when": 1703729793872,
       "tag": "0001_low_guardian",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1703812228549,
+      "tag": "0002_plain_surge",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1703815286183,
+      "tag": "0003_flawless_centennial",
+      "breakpoints": true
     }
   ]
 }

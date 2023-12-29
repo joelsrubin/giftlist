@@ -41,7 +41,7 @@ import { toast } from 'sonner';
 
 type TName = typeof names.$inferInsert;
 
-export const columns: ColumnDef<TName>[] = [
+const columns: ColumnDef<TName>[] = [
   {
     id: 'select',
     header: ({ table }) => (
