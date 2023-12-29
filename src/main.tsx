@@ -7,7 +7,6 @@ import {
   Route,
   RootRoute,
   Link,
-  useNavigate,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import './index.css';
@@ -32,33 +31,24 @@ import {
   SignInButton,
 } from '@clerk/clerk-react';
 
-import { PersonIcon } from '@radix-ui/react-icons';
+import { DropdownMenuComponent } from './components/compound-components/dropdown-menu';
 const rootRoute = new RootRoute({
   component: function Root() {
     const { isSignedIn } = useAuth();
-    const navigate = useNavigate();
+
     return (
       <div className="bg-slate-100 h-full">
         <nav className="flex items-center justify-between px-4">
-          <Button variant="link" asChild>
-            {isSignedIn ? (
-              <SignOutButton signOutCallback={() => navigate({ to: '/' })} />
-            ) : (
-              <SignInButton />
-            )}
-          </Button>
-
           <h1 className="text-center p-4 text-2xl font-bold underline decoration-wavy decoration-indigo-400 underline-offset-8">
             Wish List
           </h1>
-          <Button variant="ghost" className="h-8 w-8 p-0 hover:bg-slate-300">
-            <span className="sr-only">Add name</span>
-            <PersonIcon className="h-4 w-4" />
+          <Button variant="link" asChild>
+            {isSignedIn ? <DropdownMenuComponent /> : <SignInButton />}
           </Button>
         </nav>
         <Outlet />
         <Toaster />
-        <TanStackRouterDevtools />
+        {import.meta.env.DEV && <TanStackRouterDevtools />}
       </div>
     );
   },
@@ -108,8 +98,10 @@ export const signInRoute = new Route({
   path: '/signIn',
   component: () => {
     return (
-      <div className="h-screen flex justify-center items-center flex-col">
-        <SignIn />
+      <div className="h-screen flex justify-start items-center flex-col">
+        <div className="pt-20">
+          <SignIn />
+        </div>
       </div>
     );
   },
