@@ -37,7 +37,7 @@ const rootRoute = new RootRoute({
     const { isSignedIn } = useAuth();
 
     return (
-      <div className="bg-slate-100 h-full">
+      <div className="bg-slate-100 h-svh">
         <nav className="flex items-center justify-between px-4">
           <Link to="/">
             <h1 className="text-center p-4 text-3xl font-bold underline decoration-wavy decoration-indigo-400 underline-offset-8">
