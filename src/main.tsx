@@ -109,9 +109,6 @@ export const signInRoute = new Route({
   component: () => {
     return (
       <div className="h-screen flex justify-center items-center flex-col">
-        <h1 className="p-4 text-2xl font-bold hover:underline decoration-wavy decoration-indigo-400 underline-offset-8">
-          Sign In
-        </h1>
         <SignIn />
       </div>
     );
