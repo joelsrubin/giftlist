@@ -3,16 +3,16 @@ import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader } from '../ui/card';
 
 import { gifts } from '@/db/schema';
-import { db } from '@/db';
-import { eq } from 'drizzle-orm';
+
 import { handleInvalidate } from '@/main';
 import { DeleteAlert } from './delete-alert';
+import { deleteGift } from '@/api';
 
 type TGift = typeof gifts.$inferInsert;
 
 async function handleDelete(id: number | undefined) {
   if (id) {
-    await db.delete(gifts).where(eq(gifts.id, id));
+    await deleteGift({ id });
     handleInvalidate();
   }
 }

@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 
 import { db } from '@/db';
 
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 import { gifts, names } from '@/db/schema';
 
 import { NotesPage } from './route-components/notes-page';
@@ -123,7 +123,8 @@ export const namesRoute = new Route({
     const data = await db
       .select()
       .from(gifts)
-      .where(eq(gifts.nameId, Number(params.nameId)));
+      .where(eq(gifts.nameId, Number(params.nameId)))
+      .orderBy(desc(gifts.createdAt));
 
     return data;
   },

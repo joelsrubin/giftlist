@@ -36,6 +36,20 @@
       "when": 1703903150737,
       "tag": "0004_mysterious_the_phantom",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1703952165535,
+      "tag": "0005_tough_saracen",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1703952914054,
+      "tag": "0006_oval_black_tom",
+      "breakpoints": true
     }
   ]
 }

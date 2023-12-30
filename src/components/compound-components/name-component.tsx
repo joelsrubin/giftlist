@@ -7,13 +7,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { db } from '@/db';
+
 import { handleInvalidate } from '@/main';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { eq } from 'drizzle-orm';
+
 import { toast } from 'sonner';
 import { Button } from '../ui/button';
 import { Link } from '@tanstack/react-router';
+import { deleteName } from '@/api';
 
 export function NameComponent({ name }: { name: typeof names.$inferInsert }) {
   const firstLetter = name.name.charAt(0).toUpperCase();
@@ -45,9 +46,11 @@ export function NameComponent({ name }: { name: typeof names.$inferInsert }) {
           <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={async () => {
-                await db.delete(names).where(eq(names.id, name.id!));
-                handleInvalidate();
-                toast('Deleted!');
+                if (name.id) {
+                  await deleteName({ id: name.id });
+                  handleInvalidate();
+                  toast('Deleted!');
+                }
               }}
             >
               Delete

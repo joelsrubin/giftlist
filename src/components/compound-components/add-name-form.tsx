@@ -1,8 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-import { db } from '@/db';
-import { names } from '@/db/schema';
 import { handleInvalidate, notesRoute } from '@/main';
 import { Plus } from 'lucide-react';
 import { useRef } from 'react';
@@ -19,6 +17,7 @@ import {
 } from '../ui/dialog';
 import { Label } from '../ui/label';
 import { IconButton } from './icon-button';
+import { addName } from '@/api';
 
 export function AddNameForm({ isButton }: { isButton: boolean }) {
   const formRef = useRef<HTMLFormElement>(null);
@@ -29,10 +28,7 @@ export function AddNameForm({ isButton }: { isButton: boolean }) {
     const formData = new FormData(e.currentTarget);
 
     try {
-      await db.insert(names).values({
-        name: formData.get('name') as string,
-        clerkId: userId,
-      });
+      await addName({ name: formData.get('name') as string, clerkId: userId });
       handleInvalidate();
       toast('success!');
       formRef.current?.reset();

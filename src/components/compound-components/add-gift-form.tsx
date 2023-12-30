@@ -1,8 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-import { db } from '@/db';
-import { gifts } from '@/db/schema';
 import { handleInvalidate, namesRoute } from '@/main';
 import { Plus } from 'lucide-react';
 import { useRef } from 'react';
@@ -19,6 +17,7 @@ import {
 } from '../ui/dialog';
 import { Label } from '../ui/label';
 import { IconButton } from './icon-button';
+import { addGift } from '@/api';
 
 export function AddGiftForm({ isButton }: { isButton: boolean }) {
   const formRef = useRef<HTMLFormElement>(null);
@@ -29,7 +28,7 @@ export function AddGiftForm({ isButton }: { isButton: boolean }) {
     const formData = new FormData(e.currentTarget);
 
     try {
-      await db.insert(gifts).values({
+      await addGift({
         gift: formData.get('gift') as string,
         price: formData.get('price') as string,
         nameId: Number(nameId),
