@@ -2,8 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 import { db } from '@/db';
-import { names } from '@/db/schema';
-import { handleInvalidate, notesRoute } from '@/main';
+import { gifts } from '@/db/schema';
+import { handleInvalidate, namesRoute } from '@/main';
 import { Plus } from 'lucide-react';
 import { useRef } from 'react';
 import { toast } from 'sonner';
@@ -20,18 +20,19 @@ import {
 import { Label } from '../ui/label';
 import { IconButton } from './icon-button';
 
-export function AddNameForm({ isButton }: { isButton: boolean }) {
+export function AddGiftForm({ isButton }: { isButton: boolean }) {
   const formRef = useRef<HTMLFormElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { userId } = notesRoute.useParams();
+  const { nameId } = namesRoute.useParams();
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
     try {
-      await db.insert(names).values({
-        name: formData.get('name') as string,
-        clerkId: userId,
+      await db.insert(gifts).values({
+        gift: formData.get('gift') as string,
+        price: formData.get('price') as string,
+        nameId: Number(nameId),
       });
       handleInvalidate();
       toast('success!');
@@ -46,7 +47,7 @@ export function AddNameForm({ isButton }: { isButton: boolean }) {
       <DialogClose ref={buttonRef} />
       <DialogTrigger asChild>
         {isButton ? (
-          <Button>Add a name</Button>
+          <Button>Add a gift</Button>
         ) : (
           <IconButton>
             <Plus className="h-4 w-4" />
@@ -55,7 +56,7 @@ export function AddNameForm({ isButton }: { isButton: boolean }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add a new name</DialogTitle>
+          <DialogTitle>Add a gift</DialogTitle>
           <DialogDescription>
             Make changes to your name list. Click save when you're done.
           </DialogDescription>
@@ -63,13 +64,22 @@ export function AddNameForm({ isButton }: { isButton: boolean }) {
         <form ref={formRef} onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-left">
-                Name
+              <Label htmlFor="gift" className="text-left">
+                Gift
               </Label>
               <Input
-                id="name"
-                placeholder="Name"
-                name="name"
+                id="gift"
+                placeholder="Gift"
+                name="gift"
+                className="col-span-3"
+              />
+              <Label htmlFor="price" className="text-left">
+                Price
+              </Label>
+              <Input
+                id="price"
+                placeholder="Price"
+                name="price"
                 className="col-span-3"
               />
             </div>

@@ -10,16 +10,16 @@ import {
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import './index.css';
-import logo from '../public/avatar.png';
+import logo from '@/assets/avatar.png';
 import { Toaster } from '@/components/ui/sonner';
 import { Button } from '@/components/ui/button';
 
 import { db } from '@/db';
 
 import { eq } from 'drizzle-orm';
-import { names } from '@/db/schema';
+import { gifts, names } from '@/db/schema';
 
-import { Notes } from './route-components/notes';
+import { NotesPage } from './route-components/notes-page';
 import {
   SignedIn,
   SignedOut,
@@ -32,6 +32,7 @@ import {
 } from '@clerk/clerk-react';
 
 import { DropdownMenuComponent as DropDown } from './components/compound-components/dropdown-menu';
+import { NamesPage } from './route-components/name-page';
 const rootRoute = new RootRoute({
   component: function Root() {
     const { isSignedIn } = useAuth();
@@ -44,11 +45,18 @@ const rootRoute = new RootRoute({
               Wish List
             </h1>
           </Link>
-          <Button className="text-xl" variant="link" asChild>
+          <Button className="text-xl" variant="default" asChild>
             {isSignedIn ? <DropDown /> : <SignInButton />}
           </Button>
         </nav>
-        <Outlet />
+        <SignedIn>
+          <Outlet />
+        </SignedIn>
+        <SignedOut>
+          <div className="w-[400px] mx-auto h-full text-center flex justify-center items-center gap-8">
+            <img src={logo} />
+          </div>
+        </SignedOut>
         <Toaster />
         {import.meta.env.DEV && <TanStackRouterDevtools />}
       </div>
@@ -61,33 +69,25 @@ const indexRoute = new Route({
   path: '/',
   component: function Index() {
     const { user } = useUser();
-
     return (
       <div className="p-2 bg-slate-100 flex flex-col gap-4 h-screen w-full space-y-4 items-center justify-center">
         <div className="w-[400px] text-center flex justify-between flex-col gap-8">
-          <SignedIn>
-            <div className="flex mx-auto">
-              <Link
-                to="/notes/$userId"
-                params={{
-                  userId: user?.id,
-                }}
-                preload="intent"
-              >
-                <Button className="mx-auto" variant="link">
-                  Continue
-                </Button>
-              </Link>
-              <Button variant="link" asChild>
-                <SignOutButton />
+          <div className="flex mx-auto">
+            <Link
+              to="/notes/$userId"
+              params={{
+                userId: user?.id,
+              }}
+              preload="intent"
+            >
+              <Button className="mx-auto" variant="link">
+                Continue
               </Button>
-            </div>
-          </SignedIn>
-          <SignedOut>
-            <Link to="/signIn">
-              <img src={logo} />
             </Link>
-          </SignedOut>
+            <Button variant="link" asChild>
+              <SignOutButton />
+            </Button>
+          </div>
         </div>
       </div>
     );
@@ -98,13 +98,7 @@ export const signInRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '/signIn',
   component: () => {
-    return (
-      <div className="h-screen flex justify-start items-center flex-col">
-        <div className="pt-20">
-          <SignIn />
-        </div>
-      </div>
-    );
+    return <SignIn />;
   },
 });
 
@@ -119,12 +113,33 @@ export const notesRoute = new Route({
 
     return data;
   },
-  component: Notes,
+  component: NotesPage,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, notesRoute, signInRoute]);
+export const namesRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: `/names/$nameId`,
+  loader: async ({ params }) => {
+    const data = await db
+      .select()
+      .from(gifts)
+      .where(eq(gifts.nameId, Number(params.nameId)));
 
-const router = new Router({ routeTree });
+    return data;
+  },
+  component: NamesPage,
+});
+
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  notesRoute,
+  signInRoute,
+  namesRoute,
+]);
+
+const router = new Router({
+  routeTree,
+});
 
 export function handleInvalidate() {
   router.invalidate();

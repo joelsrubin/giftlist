@@ -25,7 +25,7 @@ export function NameComponent({ name }: { name: typeof names.$inferInsert }) {
           <AvatarFallback>{firstLetter}</AvatarFallback>
         </Avatar>
         <div>
-          <Link>
+          <Link to="/names/$nameId" params={{ nameId: String(name.id) }}>
             <p className="text-sm font-medium leading-none hover:underline">
               {name.name}
             </p>
