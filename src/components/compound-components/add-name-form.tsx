@@ -15,7 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
-import { Label } from '../ui/label';
+
 import { IconButton } from './icon-button';
 import { addName } from '@/api';
 import { DatePicker } from './date-picker';
@@ -66,19 +66,15 @@ export function AddNameForm({ isButton }: { isButton: boolean }) {
         </DialogHeader>
         <form ref={formRef} onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-left">
-                Name
-              </Label>
+            <div className="grid grid-cols-2 items-center gap-4">
               <Input
                 id="name"
                 placeholder="Name"
                 name="name"
-                className="col-span-3"
+                className="col-span-2"
+                required
               />
-              <Label htmlFor="name" className="text-left">
-                Birthday
-              </Label>
+
               <DatePicker date={date} setDate={setDate} />
             </div>
           </div>
