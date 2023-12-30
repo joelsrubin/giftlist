@@ -7,6 +7,7 @@ import { gifts } from '@/db/schema';
 import { handleInvalidate } from '@/main';
 import { DeleteAlert } from './delete-alert';
 import { deleteGift } from '@/api';
+import { cn } from '@/lib/utils';
 
 type TGift = typeof gifts.$inferInsert;
 
@@ -21,9 +22,19 @@ export function GiftCard({ gift }: { gift: TGift }) {
     <Card>
       <CardHeader>
         <div className="flex justify-between">
-          <div>
+          <div className="flex gap-2 flex-col">
             <h2 className="text-2xl font-bold">{gift.gift}</h2>
-            <Badge className="w-fit">Book</Badge>
+            <Badge
+              className={cn('w-fit text-black', {
+                'bg-indigo-200 ': gift.category === 'lifestyle',
+                'bg-green-200': gift.category === 'books',
+                'bg-pink-200': gift.category === 'home',
+                'bg-orange-200': gift.category === 'electronics',
+                'bg-blue-200': gift.category === 'fashion',
+              })}
+            >
+              {gift.category}
+            </Badge>
           </div>
           <DeleteAlert handleDelete={handleDelete} id={gift.id} />
         </div>

@@ -18,12 +18,23 @@ import { deleteName } from '@/api';
 
 export function NameComponent({ name }: { name: typeof names.$inferInsert }) {
   const firstLetter = name.name.charAt(0).toUpperCase();
+  const secondLetter = name.name.split(' ')[1]?.charAt(0).toUpperCase();
+  const [month, day] = new Date(name.birthDate).toLocaleString().split('/');
+  function getFormattedDate() {
+    if (Number(month) < 10) {
+      return `0${month}/${day}`;
+    }
+    return `${month}/${day}`;
+  }
   return (
     <div className="flex justify-between">
       <div className="flex items-center space-x-4">
         <Avatar>
           <AvatarImage src="/avatars/01.png" />
-          <AvatarFallback>{firstLetter}</AvatarFallback>
+          <AvatarFallback>
+            {firstLetter}
+            {secondLetter ?? ''}
+          </AvatarFallback>
         </Avatar>
         <div>
           <Link to="/names/$nameId" params={{ nameId: String(name.id) }}>
@@ -32,6 +43,9 @@ export function NameComponent({ name }: { name: typeof names.$inferInsert }) {
             </p>
           </Link>
         </div>
+        <p className="text-xs font-light text-slate-400">
+          {getFormattedDate()}
+        </p>
       </div>
       <div>
         <DropdownMenu>

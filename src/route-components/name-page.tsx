@@ -15,7 +15,7 @@ export function NamesPage() {
   return (
     <div className="p-2 bg-slate-100 flex flex-col h-screen space-y-4">
       <section className="p-6">
-        <div className="flex justify-between flex-row">
+        <div className="flex justify-between flex-row pb-4">
           <Button
             variant="ghost"
             className="h-8 w-8 p-0 hover:bg-slate-300"
@@ -26,7 +26,7 @@ export function NamesPage() {
             <span className="sr-only">Account Info</span>
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <AddGiftForm isButton={false} />
+          <AddGiftForm isButton={false} darkHover />
         </div>
         {data.length ? (
           <div className="sm:grid grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center justify-center gap-4">

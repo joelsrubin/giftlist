@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 
 import { handleInvalidate, notesRoute } from '@/main';
 import { Plus } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 import {
   Dialog,
@@ -18,8 +18,10 @@ import {
 import { Label } from '../ui/label';
 import { IconButton } from './icon-button';
 import { addName } from '@/api';
+import { DatePicker } from './date-picker';
 
 export function AddNameForm({ isButton }: { isButton: boolean }) {
+  const [date, setDate] = useState<Date>();
   const formRef = useRef<HTMLFormElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { userId } = notesRoute.useParams();
@@ -28,11 +30,17 @@ export function AddNameForm({ isButton }: { isButton: boolean }) {
     const formData = new FormData(e.currentTarget);
 
     try {
-      await addName({ name: formData.get('name') as string, clerkId: userId });
-      handleInvalidate();
-      toast('success!');
-      formRef.current?.reset();
-      buttonRef.current?.click();
+      if (date) {
+        await addName({
+          name: formData.get('name') as string,
+          clerkId: userId,
+          birthDate: date?.toISOString(),
+        });
+        handleInvalidate();
+        toast('success!');
+        formRef.current?.reset();
+        buttonRef.current?.click();
+      }
     } catch {
       toast('unable to submit!');
     }
@@ -68,6 +76,10 @@ export function AddNameForm({ isButton }: { isButton: boolean }) {
                 name="name"
                 className="col-span-3"
               />
+              <Label htmlFor="name" className="text-left">
+                Birthday
+              </Label>
+              <DatePicker date={date} setDate={setDate} />
             </div>
           </div>
           <DialogFooter>

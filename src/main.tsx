@@ -14,11 +14,6 @@ import logo from '@/assets/avatar.png';
 import { Toaster } from '@/components/ui/sonner';
 import { Button } from '@/components/ui/button';
 
-import { db } from '@/db';
-
-import { desc, eq } from 'drizzle-orm';
-import { gifts, names } from '@/db/schema';
-
 import { NotesPage } from './route-components/notes-page';
 import {
   SignedIn,
@@ -33,6 +28,7 @@ import {
 
 import { DropdownMenuComponent as DropDown } from './components/compound-components/dropdown-menu';
 import { NamesPage } from './route-components/name-page';
+import { getGifts, getNames } from './api';
 const rootRoute = new RootRoute({
   component: function Root() {
     const { isSignedIn } = useAuth();
@@ -106,11 +102,7 @@ export const notesRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '/notes/$userId',
   loader: async ({ params }) => {
-    const data = await db
-      .select()
-      .from(names)
-      .where(eq(names.clerkId, params.userId));
-
+    const data = getNames(params.userId);
     return data;
   },
   component: NotesPage,
@@ -120,12 +112,7 @@ export const namesRoute = new Route({
   getParentRoute: () => rootRoute,
   path: `/names/$nameId`,
   loader: async ({ params }) => {
-    const data = await db
-      .select()
-      .from(gifts)
-      .where(eq(gifts.nameId, Number(params.nameId)))
-      .orderBy(desc(gifts.createdAt));
-
+    const data = await getGifts(params.nameId);
     return data;
   },
   component: NamesPage,

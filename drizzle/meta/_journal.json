@@ -50,6 +50,20 @@
       "when": 1703952914054,
       "tag": "0006_oval_black_tom",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1703954750619,
+      "tag": "0007_first_miss_america",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1703956699346,
+      "tag": "0008_silky_ogun",
+      "breakpoints": true
     }
   ]
 }

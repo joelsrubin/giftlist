@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 
 import { handleInvalidate, namesRoute } from '@/main';
 import { Plus } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 import {
   Dialog,
@@ -16,10 +16,25 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { Label } from '../ui/label';
-import { IconButton } from './icon-button';
-import { addGift } from '@/api';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
-export function AddGiftForm({ isButton }: { isButton: boolean }) {
+import { addGift } from '@/api';
+import { GIFTS_TYPES } from '@/constants';
+
+export function AddGiftForm({
+  isButton,
+}: {
+  isButton: boolean;
+  darkHover?: boolean;
+}) {
+  const [selectValue, setSelectValue] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { nameId } = namesRoute.useParams();
@@ -31,6 +46,7 @@ export function AddGiftForm({ isButton }: { isButton: boolean }) {
       await addGift({
         gift: formData.get('gift') as string,
         price: formData.get('price') as string,
+        category: selectValue as (typeof GIFTS_TYPES)[number],
         nameId: Number(nameId),
       });
       handleInvalidate();
@@ -48,9 +64,10 @@ export function AddGiftForm({ isButton }: { isButton: boolean }) {
         {isButton ? (
           <Button>Add a gift</Button>
         ) : (
-          <IconButton>
+          <Button variant="ghost" className="h-8 w-8 p-0 hover:bg-slate-300">
+            <span className="sr-only">Account Info</span>
             <Plus className="h-4 w-4" />
-          </IconButton>
+          </Button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -81,6 +98,21 @@ export function AddGiftForm({ isButton }: { isButton: boolean }) {
                 name="price"
                 className="col-span-3"
               />
+              <Label>Category</Label>
+              <Select onValueChange={(val) => setSelectValue(val)}>
+                <SelectTrigger className="w-[277.25px]">
+                  <SelectValue placeholder="Select a category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {GIFTS_TYPES.map((gift) => (
+                      <SelectItem value={gift} key={gift}>
+                        {gift}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <DialogFooter>
