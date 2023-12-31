@@ -5,64 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1703729756676,
-      "tag": "0000_silly_silver_centurion",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1703729793872,
-      "tag": "0001_low_guardian",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1703812228549,
-      "tag": "0002_plain_surge",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1703815286183,
-      "tag": "0003_flawless_centennial",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1703903150737,
-      "tag": "0004_mysterious_the_phantom",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1703952165535,
-      "tag": "0005_tough_saracen",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1703952914054,
-      "tag": "0006_oval_black_tom",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1703954750619,
-      "tag": "0007_first_miss_america",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "5",
-      "when": 1703956699346,
-      "tag": "0008_silky_ogun",
+      "when": 1703985836747,
+      "tag": "0000_keen_texas_twister",
       "breakpoints": true
     }
   ]

@@ -1,1 +1,0 @@
-ALTER TABLE gifts ADD `category` text NOT NULL;

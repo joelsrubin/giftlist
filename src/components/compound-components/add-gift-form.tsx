@@ -15,7 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
-import { Label } from '../ui/label';
+
 import {
   Select,
   SelectContent,
@@ -79,28 +79,26 @@ export function AddGiftForm({
         </DialogHeader>
         <form ref={formRef} onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="gift" className="text-left">
-                Gift
-              </Label>
+            <div className="grid grid-cols-2 items-center gap-4">
               <Input
                 id="gift"
                 placeholder="Gift"
                 name="gift"
-                className="col-span-3"
+                className="col-span-2"
+                required
               />
-              <Label htmlFor="price" className="text-left">
-                Price
-              </Label>
+
               <Input
                 id="price"
                 placeholder="Price"
                 name="price"
-                className="col-span-3"
+                className="col-span-2"
+                type="number"
+                required
               />
-              <Label>Category</Label>
+
               <Select onValueChange={(val) => setSelectValue(val)}>
-                <SelectTrigger className="w-[277.25px]">
+                <SelectTrigger className="col-span-2">
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
                 <SelectContent>
@@ -115,6 +113,7 @@ export function AddGiftForm({
               </Select>
             </div>
           </div>
+
           <DialogFooter>
             <Button type="submit">Save changes</Button>
           </DialogFooter>

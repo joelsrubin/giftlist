@@ -1,1 +1,0 @@
-ALTER TABLE names ADD `birth_date` text NOT NULL;

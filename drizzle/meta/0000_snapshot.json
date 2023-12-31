@@ -1,11 +1,11 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "65495b75-ceff-4e81-87de-1540f1d6940e",
+  "id": "63970f56-1e04-4c64-b407-3fe3bb73ba0e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "names": {
-      "name": "names",
+    "gifts": {
+      "name": "gifts",
       "columns": {
         "id": {
           "name": "id",
@@ -14,18 +14,11 @@
           "notNull": true,
           "autoincrement": true
         },
-        "user_id": {
-          "name": "user_id",
-          "type": "text",
+        "name_id": {
+          "name": "name_id",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "gift": {
@@ -41,29 +34,44 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "names_user_id_users_id_fk": {
-          "name": "names_user_id_users_id_fk",
-          "tableFrom": "names",
-          "tableTo": "users",
+        "gifts_name_id_names_id_fk": {
+          "name": "gifts_name_id_names_id_fk",
+          "tableFrom": "gifts",
+          "tableTo": "names",
           "columnsFrom": [
-            "user_id"
+            "name_id"
           ],
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "users": {
-      "name": "users",
+    "names": {
+      "name": "names",
       "columns": {
         "id": {
           "name": "id",
@@ -72,12 +80,34 @@
           "notNull": true,
           "autoincrement": true
         },
-        "username": {
-          "name": "username",
+        "clerkId": {
+          "name": "clerkId",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "birth_date": {
+          "name": "birth_date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
         }
       },
       "indexes": {},
