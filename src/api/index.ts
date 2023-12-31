@@ -31,16 +31,12 @@ export async function getGifts(nameId: string) {
   return data;
 }
 export async function addGift({ gift, price, nameId, category }: TGift) {
-  try {
-    await db.insert(gifts).values({
-      gift,
-      price,
-      nameId,
-      category,
-    });
-  } catch (e) {
-    console.log(e);
-  }
+  await db.insert(gifts).values({
+    gift,
+    price,
+    nameId,
+    category,
+  });
 }
 
 export async function deleteGift({ id }: { id: number }) {
